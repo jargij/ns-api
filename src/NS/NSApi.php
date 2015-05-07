@@ -17,6 +17,7 @@ use Wubs\NS\Responses\Failure;
 use Wubs\NS\Responses\Failures;
 use Wubs\NS\Responses\Planner\Advise;
 use Wubs\NS\Responses\Station;
+use Wubs\NS\Responses\Depature;
 
 class NSApi implements Api
 {
@@ -117,6 +118,9 @@ class NSApi implements Api
             ]
         );
         return Departures::fromXML($result->xml());
+
+        $result = $this->client->get('/ns-api-avt', ['auth' => $this->auth]);
+        return $this->toDepatures($result->xml());
     }
 
     private function getClient()
@@ -139,6 +143,19 @@ class NSApi implements Api
             $stations->push(Station::fromXML($stationXmlObject));
         }
         return $stations;
+    }
+
+    /**
+     * @param $xml
+     * @return Collection|Depature[]
+     */
+    private function toDepatures(\SimpleXMLElement $xml)
+    {
+        $depatures = new Collection();
+        foreach ($xml as $stationXmlObject) {
+            $depatures->push(Depature::fromXML($stationXmlObject));
+        }
+        return $depatures;
     }
 
     private function toAdvises(\SimpleXMLElement $xml)
