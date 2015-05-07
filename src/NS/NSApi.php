@@ -103,6 +103,22 @@ class NSApi implements Api
         return $this->toAdvises($result->xml());
     }
 
+    /**
+     * @param $station
+     * @return Deparatures
+     */
+    public function departures($station)
+    {
+        $result = $this->client->get(
+            '/ns-api-avt',
+            [
+                'query' => ['station' => $station],
+                'auth' => $this->auth
+            ]
+        );
+        return Departures::fromXML($result->xml());
+    }
+
     private function getClient()
     {
         return new Client(

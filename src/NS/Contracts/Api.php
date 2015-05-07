@@ -11,4 +11,6 @@ interface Api
 
     public function advise($fromStation, $toStation, Carbon $dateTime, $departure);
 
+    public function depatures($station);
+
 }

@@ -4,11 +4,11 @@
 namespace Wubs\NS\Contracts;
 
 
-interface Station
+interface Depature
 {
     public static function create($data);
 
-    public function getRitNummer();
+    public function getName();
 
     public function getCode();
 
