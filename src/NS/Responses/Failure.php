@@ -22,7 +22,7 @@ class Failure implements Response
 
     public $date;
 
-    private function __construct(Carbon $date, $id, $message, $reason, $route)
+    private function __construct($date, $id, $message, $reason, $route)
     {
         $this->date = $date;
         $this->id = $id;
