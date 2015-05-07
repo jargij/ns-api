@@ -106,20 +106,17 @@ class NSApi implements Api
 
     /**
      * @param $station
-     * @return Deparatures
+     * @return Deparature
      */
-    public function departures($station)
+    public function depatures($station)
     {
         $result = $this->client->get(
             '/ns-api-avt',
             [
-                'query' => ['station' => $station],
+                'query'=>['station' => $station],
                 'auth' => $this->auth
             ]
         );
-        return Departures::fromXML($result->xml());
-
-        $result = $this->client->get('/ns-api-avt', ['auth' => $this->auth]);
         return $this->toDepatures($result->xml());
     }
 
